@@ -1,8 +1,5 @@
-'use client';
-
 import { DraftNote } from '@/types/note';
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 interface NoteStore {
   draft: DraftNote;
@@ -16,18 +13,10 @@ const initialDraft: DraftNote = {
   tag: 'Todo',
 };
 
-export const useNoteStore = create<NoteStore>()(
-  persist(
-    (set, get) => ({
-      draft: initialDraft,
-      setDraft: note => set({ draft: { ...get().draft, ...note } }),
-      clearDraft: () => set({ draft: initialDraft }),
-    }),
-    {
-      name: 'note-draft-storage',
-      skipHydration: true, // Prevent issues during SSR
-    }
-  )
-);
+export const useNoteStore = create<NoteStore>()((set, get) => ({
+  draft: initialDraft,
+  setDraft: note => set({ draft: { ...get().draft, ...note } }),
+  clearDraft: () => set({ draft: initialDraft }),
+}));
 
 export { initialDraft };
