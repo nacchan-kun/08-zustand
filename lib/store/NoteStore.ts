@@ -1,5 +1,4 @@
-// import { DraftNote } from '@/types/note';
-import type { DraftNote } from '@/types/note'; // Ensure DraftNote is exported from the module, or replace with the correct type name
+import { DraftNote } from '@/types/note';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
