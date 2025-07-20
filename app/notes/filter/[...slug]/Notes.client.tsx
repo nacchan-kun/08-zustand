@@ -67,3 +67,16 @@ export default function NotesClient({ tag, initialData }: NotesClientProps) {
     </div>
   );
 }
+
+interface NoteFormProps {
+  onClose: () => void;
+}
+
+const NoteForm: React.FC<NoteFormProps> = ({ onClose }) => {
+  // component logic
+  return (
+    // JSX
+  );
+};
+
+export default NotesClient;
