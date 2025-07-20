@@ -2,11 +2,15 @@
 
 import { useRouter } from 'next/navigation';
 import { createNote } from '@/lib/api';
-import { useNoteStore } from '@/lib/store/noteStore';
+import { useNoteStore } from '@/lib/store';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import css from './NoteForm.module.css';
 
-export default function NoteForm() {
+interface Props {
+  onClose?: () => void;
+}
+
+export default function NoteForm({ onClose }: Props) {
   const router = useRouter();
 
   const { draft, setDraft, clearDraft } = useNoteStore();
@@ -18,7 +22,11 @@ export default function NoteForm() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] });
       clearDraft();
-      router.push('/notes/filter/all');
+      if (onClose) {
+        onClose();
+      } else {
+        router.push('/notes/filter/all');
+      }
     },
     onError: error => {
       console.error('Failed to create note:', error);
@@ -83,7 +91,7 @@ export default function NoteForm() {
       <div className={css.actions}>
         <button
           type="button"
-          onClick={() => router.back()}
+          onClick={() => onClose ? onClose() : router.back()}
           className={css.cancelButton}
         >
           Cancel

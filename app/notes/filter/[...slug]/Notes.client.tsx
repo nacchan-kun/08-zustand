@@ -8,7 +8,7 @@ import SearchBox from '@/components/SearchBox/SearchBox';
 import Pagination from '@/components/Pagination/Pagination';
 import NoteList from '@/components/NoteList/NoteList';
 import Modal from '@/components/Modal/Modal';
-import NoteForm from '../../../../components/NoteForm/NoteForm';
+import NoteForm from '@/components/NoteForm/NoteForm';
 import { useDebounce } from 'use-debounce';
 import css from '@/app/notes/filter/[...slug]/Notes.client.module.css';
 import Loader from '@/components/Loader/Loader';
@@ -67,16 +67,3 @@ export default function NotesClient({ tag, initialData }: NotesClientProps) {
     </div>
   );
 }
-
-interface NoteFormProps {
-  onClose: () => void;
-}
-
-const NoteForm: React.FC<NoteFormProps> = ({ onClose }) => {
-  // component logic
-  return (
-    // JSX
-  );
-};
-
-export default NotesClient;
