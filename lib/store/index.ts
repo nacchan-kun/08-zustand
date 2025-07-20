@@ -1,2 +1,1 @@
-export * from './noteStore';
-export { useNoteStore as default } from './noteStore';
+export { useNoteStore, initialDraft } from './noteStore';
