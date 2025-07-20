@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { createNote } from '@/lib/api';
-import { useNoteStore } from '@/lib/store';
+// import { useNoteStore } from '@/lib/store';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import css from './NoteForm.module.css';
@@ -14,7 +14,7 @@ interface Props {
 export default function NoteForm({ onClose }: Props) {
   const router = useRouter();
 
-  const { draft, setDraft, clearDraft } = useNoteStore();
+  // const { draft, setDraft, clearDraft } = useNoteStore();
 
   const queryClient = useQueryClient();
 
