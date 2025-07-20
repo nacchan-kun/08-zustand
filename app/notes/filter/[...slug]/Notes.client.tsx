@@ -6,8 +6,7 @@ import { fetchNotes, FetchNotesHTTPResponse } from '@/lib/api';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import Pagination from '@/components/Pagination/Pagination';
 import NoteList from '@/components/NoteList/NoteList';
-import Modal from '@/components/Modal/Modal';
-import NoteForm from '@/components/NoteForm/NoteForm';
+import Link from 'next/link';
 import { useDebounce } from 'use-debounce';
 import css from '@/app/notes/filter/[...slug]/Notes.client.module.css';
 import Loader from '@/components/Loader/Loader';
@@ -21,7 +20,6 @@ export default function NotesClient({ tag, initialData }: NotesClientProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearch] = useDebounce(searchQuery, 500);
   const [page, setPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data, isLoading, error, isFetching } =
     useQuery<FetchNotesHTTPResponse>({
@@ -47,9 +45,9 @@ export default function NotesClient({ tag, initialData }: NotesClientProps) {
             onPageChange={setPage}
           />
         )}
-        <button className={css.button} onClick={() => setIsModalOpen(true)}>
+        <Link href="/notes/action/create" className={css.button}>
           Create note +
-        </button>
+        </Link>
       </div>
 
       {error instanceof Error && <p>{error.message}</p>}
@@ -57,12 +55,6 @@ export default function NotesClient({ tag, initialData }: NotesClientProps) {
       {isFetching && !isLoading && <Loader />}
       {data?.notes?.length === 0 && !isLoading && <p>No notes found.</p>}
       {data?.notes && data.notes.length > 0 && <NoteList notes={data.notes} />}
-
-      {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
-          <NoteForm onClose={() => setIsModalOpen(false)} />
-        </Modal>
-      )}
     </div>
   );
 }
