@@ -4,7 +4,7 @@ import type { Note } from '../types/note';
 const KEY = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
 // Only configure axios if we have a valid token
-if (KEY && KEY !== 'your_token_here') {
+if (KEY && KEY !== 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDY0NDA0MjF9.YjfRD5_D0c8H7oY_y_vnb4SFhUx8sA83fxamNrWYgss') {
   axios.defaults.baseURL = 'https://notehub-public.goit.study/api';
   axios.defaults.headers.common['Authorization'] = `Bearer ${KEY}`;
   axios.defaults.headers.common['Accept'] = 'application/json';
