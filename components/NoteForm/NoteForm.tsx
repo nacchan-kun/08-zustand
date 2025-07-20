@@ -5,8 +5,13 @@ import { createNote } from '@/lib/api';
 import { useNoteStore } from '../../lib/store/NoteStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import css from './NoteForm.module.css';
+import { FC } from 'react';
 
-export default function NoteForm() {
+interface Props {
+  onClose?: () => void;
+}
+
+const NoteForm: FC<Props> = ({ onClose }) => {
   const router = useRouter();
 
   const { draft, setDraft, clearDraft } = useNoteStore();
@@ -18,7 +23,11 @@ export default function NoteForm() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] });
       clearDraft();
-      router.push('/notes/filter/all');
+      if (onClose) {
+        onClose();
+      } else {
+        router.push('/notes/filter/all');
+      }
     },
     onError: error => {
       console.error('Failed to create note:', error);
@@ -98,4 +107,6 @@ export default function NoteForm() {
       </div>
     </form>
   );
-}
+};
+
+export default NoteForm;
