@@ -1,3 +1,5 @@
+'use client';
+
 import { DraftNote } from '@/types/note';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -23,6 +25,7 @@ export const useNoteStore = create<NoteStore>()(
     }),
     {
       name: 'note-draft-storage',
+      skipHydration: true, // Prevent issues during SSR
     }
   )
 );
