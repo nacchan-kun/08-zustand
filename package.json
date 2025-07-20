@@ -19,7 +19,7 @@
     "fortawesome": "^0.0.1-security",
     "i": "^0.3.7",
     "modern-normalize": "^3.0.1",
-    "next": "15.3.3",
+    "next": "^15.4.2",
     "npm": "^11.4.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
