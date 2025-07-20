@@ -1,5 +1,5 @@
 import { fetchNotes } from '@/lib/api';
-import NoteClient from './Notes.client';
+import NotesClient from './Notes.client';
 import type { Metadata } from 'next';
 
 interface Props {
@@ -44,7 +44,7 @@ const Page = async ({ params }: Props) => {
 
   return (
     <section>
-      <NoteClient initialData={response} tag={tag} />
+      <NotesClient initialData={response} tag={tag} />
     </section>
   );
 };
