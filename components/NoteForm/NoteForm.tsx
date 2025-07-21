@@ -2,9 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { createNote } from '@/lib/api';
-import { useNoteStore } from '@/lib/store/noteStore';
+import { useHydratedNoteStore } from '@/lib/store/useHydratedNoteStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
 import css from './NoteForm.module.css';
 
 interface Props {
@@ -13,14 +12,8 @@ interface Props {
 
 export default function NoteForm({ onClose }: Props) {
   const router = useRouter();
-  const [hasHydrated, setHasHydrated] = useState(false);
 
-  const { draft, setDraft, clearDraft } = useNoteStore();
-
-  useEffect(() => {
-    useNoteStore.persist.rehydrate();
-    setHasHydrated(true);
-  }, []);
+  const { draft, setDraft, clearDraft, isHydrated } = useHydratedNoteStore();
 
   const queryClient = useQueryClient();
 
@@ -53,7 +46,7 @@ export default function NoteForm({ onClose }: Props) {
     mutation.mutate(draft);
   };
 
-  if (!hasHydrated) {
+  if (!isHydrated) {
     return <div>Loading...</div>;
   }
 
