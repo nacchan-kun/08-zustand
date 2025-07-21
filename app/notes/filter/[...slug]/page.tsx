@@ -40,11 +40,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const Page = async ({ params }: Props) => {
   const { slug } = await params;
   const tag = slug[0] === 'all' ? undefined : slug[0];
-  const response = await fetchNotes({ page: 1, search: '', tag });
+  
+  let initialData;
+  try {
+    const response = await fetchNotes({ page: 1, search: '', tag });
+    initialData = response;
+  } catch (error) {
+    console.error('Failed to fetch initial data:', error);
+    // Provide fallback data
+    initialData = { notes: [], totalPages: 0 };
+  }
 
   return (
     <section>
-      <NotesClient initialData={response} tag={tag} />
+      <NotesClient initialData={initialData} tag={tag} />
     </section>
   );
 };
